@@ -4,7 +4,8 @@ const Header = props => {
     
     return (
         <header>
-            Header
+            HOW TO...
+            <nav>nav</nav>
         </header>
     );
 
