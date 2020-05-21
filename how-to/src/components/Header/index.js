@@ -4,7 +4,7 @@ const Header = props => {
     
     return (
         <header>
-
+            Header
         </header>
     );
 
