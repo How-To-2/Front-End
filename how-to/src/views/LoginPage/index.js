@@ -1,13 +1,15 @@
 import React from "react";
 
 import Header from '../../components/Header';
-import loginForm from "./loginform";
+import LoginForm from "../../components/LoginForm";
 
 const LoginPage = props => {
 
     return (
+        <>
         <Header />
-        <loginForm />
+        <LoginForm />
+    </>
     )
 
 }
