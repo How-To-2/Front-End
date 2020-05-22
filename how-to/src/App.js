@@ -8,6 +8,8 @@ import { UserContext } from './contexts/UserContext';
 
 import HomePage from './views/HomePage';
 
+import './App.css';
+
 function App() {
 
     const [articles, setArticles] = useState([]);
