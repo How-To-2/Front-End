@@ -7,6 +7,7 @@ import { ArticleContext } from './contexts/ArticleContext';
 import { UserContext } from './contexts/UserContext';
 
 import HomePage from './views/HomePage';
+import LoginPage from './views/LoginPage';
 
 import './App.css';
 
@@ -22,6 +23,9 @@ function App() {
             <div className="App">
                 <Route exact path="/">
                     <HomePage />
+                </Route>
+                <Route path="/login">
+                    <LoginPage />
                 </Route>
             </div>
         </Router>
