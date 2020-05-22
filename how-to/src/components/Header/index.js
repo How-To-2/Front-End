@@ -1,14 +1,18 @@
 import React from 'react';
 
+import Block from './Block';
+
 const Header = props => {
     
     return (
-        <header>
-            HOW TO...
+        <Header.Block>
+            <div>HOW TO...</div>
             <nav>nav</nav>
-        </header>
+        </Header.Block>
     );
 
-}
+};
 
 export default Header;
+
+Header.Block = Block;
