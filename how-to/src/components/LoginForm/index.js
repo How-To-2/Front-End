@@ -3,6 +3,25 @@ import * as yup from "yup";
 import axios from "axios";
 import styled from 'styled-components';
 
+const WrapperForm = styled.form`
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        `
+    const CustomLabel = styled.label`
+        padding: 1rem;
+        display:flex;
+        flex-direction:column;
+    `
+    const NewButton = styled.button`
+        background-color: white;
+        width: 100%;
+        color: purple;
+        padding: 10px;
+        border-radius: 25px;
+`
+
 const Form = yup.object().shape({
   name: yup.string().required("Please Enter Username").min(5, "Name Is Too Short."),
   password: yup
@@ -96,8 +115,8 @@ const LoginForm = () => {
   return (
 
     
-    <form onSubmit={formSubmit}>
-      <label htmlFor="name">
+    <WrapperForm onSubmit={formSubmit}>
+      <CustomLabel htmlFor="name">
         Username
         <input
           type="text"
@@ -108,9 +127,9 @@ const LoginForm = () => {
         {errorState.name.length > 0 ? (
           <p className="error">{errorState.name}</p>
         ) : null}
-      </label>
+      </CustomLabel>
 
-      <label htmlFor="password">
+      <CustomLabel htmlFor="password">
         Password
         <input
           type="text"
@@ -121,8 +140,8 @@ const LoginForm = () => {
         {errorState.password.length > 0 ? (
           <p className="error">{errorState.password}</p>
         ) : null}
-      </label>
-      <label htmlFor="notRobot">
+      </CustomLabel>
+      <CustomLabel htmlFor="notRobot">
         I Am Not A Robot
         <input
           type="checkbox"
@@ -133,9 +152,9 @@ const LoginForm = () => {
         {errorState.notRobot.length > 0 ? (
           <p className="error">{errorState.notRobot}</p>
         ) : null}
-      </label>
-      <button disabled={buttonDisabled}>Login</button>
-    </form>
+      </CustomLabel>
+      <NewButton disabled={buttonDisabled}>Login</NewButton>
+    </WrapperForm>
   );
 };
 

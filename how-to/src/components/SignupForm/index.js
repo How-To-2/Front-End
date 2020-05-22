@@ -3,6 +3,25 @@ import * as yup from "yup";
 import axios from "axios";
 import styled from 'styled-components';
 
+const WrapperForm = styled.form`
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        `
+    const CustomLabel = styled.label`
+        padding: 1rem;
+        display:flex;
+        flex-direction:column;
+    `
+    const NewButton = styled.button`
+        background-color: white;
+        width: 100%;
+        color: purple;
+        padding: 10px;
+        border-radius: 25px;
+`
+
 const Form = yup.object().shape({
   name: yup
     .string()
@@ -111,23 +130,11 @@ const SignupForm = () => {
     };
     console.log(post);
 
-    const WrapperDiv = styled.div`
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        `
-    const LabelInput = styled.div`
-        padding: 1rem;
-        display:flex;
-        flex-direction:column;
-    `
+    
+
     return (
-        <form onSubmit={formSubmit}>
-            <WrapperDiv>
-                
-        <label htmlFor="name">
-        <LabelInput>
+        <WrapperForm onSubmit={formSubmit}>                
+        <CustomLabel htmlFor="name">
             Username
             <input
             type="text"
@@ -137,12 +144,8 @@ const SignupForm = () => {
             placeholder="Enter Username."
             />
             {errors.name.length > 0 ? <p className="error">{errors.name}</p> : null}
-            </LabelInput>
-        </label>
-        
-        
-        <label htmlFor="firstName">
-        <LabelInput>
+        </CustomLabel>
+        <CustomLabel htmlFor="firstName">
             First Name
             <input
             type="text"
@@ -154,12 +157,8 @@ const SignupForm = () => {
             {errors.firstName.length > 0 ? (
             <p className="error">{errors.firstName}</p>
             ) : null}
-            </LabelInput>
-        </label>
-        
-        
-        <label htmlFor="lastName">
-        <LabelInput>
+        </CustomLabel>        
+        <CustomLabel htmlFor="lastName">
             Last Name
             <input
             type="text"
@@ -171,12 +170,8 @@ const SignupForm = () => {
             {errors.lastName.length > 0 ? (
             <p className="error">{errors.lastName}</p>
             ) : null}
-            </LabelInput>
-        </label>
-        
-        
-        <label htmlFor="email">
-        <LabelInput>
+        </CustomLabel>        
+        <CustomLabel htmlFor="email">
             Email
             <input
             type="text"
@@ -188,12 +183,8 @@ const SignupForm = () => {
             {errors.lastName.length > 0 ? (
             <p className="error">{errors.lastName}</p>
             ) : null}
-            </LabelInput>
-        </label>
-        
-        
-        <label htmlFor="emailConfirmation">
-        <LabelInput>
+        </CustomLabel>        
+        <CustomLabel htmlFor="emailConfirmation">
             Confirm Email
             <input
             type="text"
@@ -202,15 +193,11 @@ const SignupForm = () => {
             onChange={inputChange}
             placeholder="Confirm Email."
             />
-            </LabelInput>
-        </label>
-        
-        
-        <label htmlFor="password">
-        <LabelInput>
+        </CustomLabel>
+        <CustomLabel htmlFor="password">
             Password
             <input
-            type="text"
+            type="password"
             name="password"
             value={formState.password}
             onChange={inputChange}
@@ -219,26 +206,18 @@ const SignupForm = () => {
             {errors.password.length > 0 ? (
             <p className="error">{errors.password}</p>
             ) : null}
-            </LabelInput>
-        </label>
-        
-        
-        <label htmlFor="passwordConfirmation">
-        <LabelInput>
+        </CustomLabel>        
+        <CustomLabel htmlFor="passwordConfirmation">
             Confirm Password
             <input
-            type="text"
+            type="password"
             name="passwordConfirmation"
             value={formState.passwordConfirmation}
             onChange={inputChange}
             placeholder="Confirm Password."
             />
-            </LabelInput>
-        </label>
-        
-        
-        <label htmlFor="accountType">
-            <LabelInput>
+        </CustomLabel>
+        <CustomLabel htmlFor="accountType">
             Reader or Contributor
             <select
             name= "accountType"
@@ -253,12 +232,8 @@ const SignupForm = () => {
             {errors.accountType.length > 0 ? (
             <p className="error">{errors.accountType}</p>
             ) : null}
-            </LabelInput>
-        </label>
-        
-        
-        <label htmlFor="notRobot">
-        <LabelInput>
+        </CustomLabel>
+        <CustomLabel htmlFor="notRobot">
             I Am Not A Robot
             <input
             type="checkbox"
@@ -270,12 +245,9 @@ const SignupForm = () => {
             {errors.notRobot.length > 0 ? (
             <p className="error">{errors.notRobot}</p>
             ) : null}
-            </LabelInput>
-        </label>
-        
-        <button disabled={buttonDisabled}>Login</button>
-        </WrapperDiv>
-        </form>
+        </CustomLabel>
+        <NewButton disabled={buttonDisabled}>Login</NewButton>
+        </WrapperForm>
     );
     };
 

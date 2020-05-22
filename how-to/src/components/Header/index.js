@@ -3,23 +3,23 @@ import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import Block from './Block';
 
-const Header = props => {
-    
-    const NewButton = styled.button`
-        background-color: white;
-        width: 100%;
-        color: purple;
-        padding: 10px;
-        border-radius: 25px;
-    `
-    const NewNav = styled.nav`
-        display: flex;
-    `
+const NewButton = styled.button`
+background-color: white;
+width: 100%;
+color: purple;
+padding: 10px;
+border-radius: 25px;
+`
+const NewNav = styled.nav`
+display: flex;
+`
 
-    const NewDiv = styled.div`
-        font-size: 2rem;
-        color: white;
-    `
+const NewDiv = styled.div`
+font-size: 2rem;
+color: white;
+`
+
+const Header = props => {
 
     return (
         <Header.Block>
