@@ -8,12 +8,7 @@ import { UserContext } from './contexts/UserContext';
 
 import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
-<<<<<<< HEAD
 import SignupPage from './views/SignupPage';
-=======
-
-import './App.css';
->>>>>>> c2740826efe2ab4a2276593ea1d70660750e3683
 
 function App() {
 
@@ -28,23 +23,18 @@ function App() {
                 <Route exact path="/">
                     <HomePage />
                 </Route>
-<<<<<<< HEAD
                 <Route exact path="/login">
                     <LoginPage />
                 </Route>
                 <Route exact path="/signup">
                     <SignupPage />
                 </Route>
-=======
-                <Route path="/login">
-                    <LoginPage />
-                </Route>
->>>>>>> c2740826efe2ab4a2276593ea1d70660750e3683
             </div>
         </Router>
         </UserContext.Provider>
         </ArticleContext.Provider>
     );
 };
+
 
 export default App;
