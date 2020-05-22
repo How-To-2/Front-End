@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
+import styled from 'styled-components';
 
 const Form = yup.object().shape({
   name: yup.string().required("Please Enter Username").min(5, "Name Is Too Short."),
@@ -8,13 +9,14 @@ const Form = yup.object().shape({
     .string()
     .required("Please Enter Password").min(6, "Password is Too Short - Must Be Longer Than 8 Characters.")
     .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      "Must Contain 8 Characters, One Number and one special case Character"
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&])(?=.{8,})/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
     ),
   notRobot: yup.boolean().oneOf([true])
 });
 
 const LoginForm = () => {
+
   const [formState, setFormState] = useState({
     name: "",
     password: "",
@@ -80,7 +82,20 @@ const LoginForm = () => {
   };
   console.log(post);
 
+  // const [userInfo, setUserInfo] = useState("");
+
+  // useEffect(() => {
+  //   axios
+  //     .get("")
+  //     .then(res => setUserInfo(res.data.message))
+  //     .catch(err => console.log(err));
+  // }, []);
+
+  
+
   return (
+
+    
     <form onSubmit={formSubmit}>
       <label htmlFor="name">
         Username
