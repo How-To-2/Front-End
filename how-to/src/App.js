@@ -5,6 +5,7 @@ import PrivateRoute from './components/PrivateRoute';
 
 import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
+import SignupPage from './views/SignupPage';
 
 function App() {
     return (
@@ -15,6 +16,9 @@ function App() {
                 </Route>
                 <Route exact path="/login">
                     <LoginPage />
+                </Route>
+                <Route exact path="/signup">
+                    <SignupPage />
                 </Route>
             </div>
         </Router>

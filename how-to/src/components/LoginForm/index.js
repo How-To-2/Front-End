@@ -3,10 +3,10 @@ import * as yup from "yup";
 import axios from "axios";
 
 const Form = yup.object().shape({
-  name: yup.string().required("Please Enter Username").min(2, "Name Is Too Short."),
+  name: yup.string().required("Please Enter Username").min(5, "Name Is Too Short."),
   password: yup
     .string()
-    .required("Please Enter Password")
+    .required("Please Enter Password").min(6, "Password is Too Short - Must Be Longer Than 8 Characters.")
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
       "Must Contain 8 Characters, One Number and one special case Character"
@@ -18,7 +18,7 @@ const LoginForm = () => {
   const [formState, setFormState] = useState({
     name: "",
     password: "",
-    notRobot: "",
+    notRobot: false,
   });
   console.log(formState);
 
@@ -33,7 +33,7 @@ const LoginForm = () => {
   const [errorState, setErrorState] = useState({
     name: "",
     password: "",
-    notRobot: "",
+    notRobot: false,
   });
 
   const validateChange = (e) => {
@@ -90,9 +90,9 @@ const LoginForm = () => {
           value={formState.name}
           onChange={inputChange}
         />
-        {/* {errorState.name.length > 0 ? (
+        {errorState.name.length > 0 ? (
           <p className="error">{errorState.name}</p>
-        ) : null} */}
+        ) : null}
       </label>
 
       <label htmlFor="password">
