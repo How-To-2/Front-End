@@ -9,6 +9,7 @@ import { UserContext } from './contexts/UserContext';
 import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
 import SignupPage from './views/SignupPage';
+import UserPage from './views/UserPage';
 
 function App() {
 
@@ -28,6 +29,9 @@ function App() {
                 </Route>
                 <Route exact path="/signup">
                     <SignupPage />
+                </Route>
+                <Route exact path="/users">
+                    <UserPage />
                 </Route>
             </div>
         </Router>
