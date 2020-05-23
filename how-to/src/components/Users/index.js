@@ -6,9 +6,9 @@ const UserList = props => {
   const [users, setUsers] = useState([])
   useEffect(() => {
     const getUsers = () => {
-      axios.get('http://dummy.restapiexample.com/api/v1/employees', {
+      axios.get('https://how-to-api-2.herokuapp.com/api/auth/users', {
         params: {
-          ID: 1
+          ID: 0
         }
       })
       .then(function (response) {
@@ -29,15 +29,15 @@ const UserList = props => {
 }
 
 function UserDetails({ user }) {
-  const { employee_name, employee_salary, employee_age } = user;
+  const { Author, Email, Account } = user;
   return (
     <div className="user-card">
-        <h2>{employee_name}</h2>
-      <div className="salary">
-        Salary: <em>{employee_salary}</em>
+        <h2>{Author}</h2>
+      <div className="Email">
+        Email: <em>{Email}</em>
       </div>
-      <div className="age">
-        Age: <strong>{employee_age}</strong>
+      <div className="account">
+        Account Type: <strong>{Account}</strong>
       </div>
     </div>
   );

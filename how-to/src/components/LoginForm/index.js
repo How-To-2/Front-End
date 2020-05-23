@@ -23,7 +23,7 @@ const WrapperForm = styled.form`
 `
 
 const Form = yup.object().shape({
-  name: yup.string().required("Please Enter Username").min(5, "Name Is Too Short."),
+  email: yup.string().email().required("Must Be Valid Email"),
   password: yup
     .string()
     .required("Please Enter Password").min(6, "Password is Too Short - Must Be Longer Than 8 Characters.")
@@ -37,7 +37,7 @@ const Form = yup.object().shape({
 const LoginForm = () => {
 
   const [formState, setFormState] = useState({
-    name: "",
+    email: "",
     password: "",
     notRobot: false,
   });
@@ -51,8 +51,29 @@ const LoginForm = () => {
     });
   }, [formState]);
 
+  const [post, setPost] = useState([]);
+
+  useEffect(() => {
+    axios
+        .post('https://how-to-api-2.herokuapp.com/auth/login', formState)
+        .then(res => {
+            setPost(res.data)
+            console.log(res)
+    })
+    .catch(err => {
+        console.log(err.response)
+    });
+}, [formState]);
+
+  const formSubmit = e => {
+    e.preventDefault();
+    console.log('Info Sent');
+  };
+
+  console.log(post);
+
   const [errorState, setErrorState] = useState({
-    name: "",
+    email: "",
     password: "",
     notRobot: false,
   });
@@ -83,49 +104,20 @@ const LoginForm = () => {
     setFormState({ ...formState, [e.target.name]: value });
   };
 
-  const [post, setPost] = useState([]);
-
-  const formSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("https://reqres.in/api/users", formState)
-      .then((res) => {
-        setPost((prevState) => [...prevState, res.data]);
-        setFormState({
-          name: "",
-          password: "",
-          notRobot: "",
-        });
-      })
-      .catch((err) => console.log(err.response));
-  };
-  console.log(post);
-
-  // const [userInfo, setUserInfo] = useState("");
-
-  // useEffect(() => {
-  //   axios
-  //     .get("")
-  //     .then(res => setUserInfo(res.data.message))
-  //     .catch(err => console.log(err));
-  // }, []);
-
-  
-
   return (
 
     
     <WrapperForm onSubmit={formSubmit}>
-      <CustomLabel htmlFor="name">
-        Username
+      <CustomLabel htmlFor="email">
+        Email
         <input
           type="text"
-          name="name"
-          value={formState.name}
+          name="email"
+          value={formState.email}
           onChange={inputChange}
         />
-        {errorState.name.length > 0 ? (
-          <p className="error">{errorState.name}</p>
+        {errorState.email.length > 0 ? (
+          <p className="error">{errorState.email}</p>
         ) : null}
       </CustomLabel>
 

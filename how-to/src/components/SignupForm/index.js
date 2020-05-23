@@ -44,7 +44,7 @@ const Form = yup.object().shape({
   passwordConfirmation: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match"),
-  accountType: yup.string(),
+  account: yup.string(),
   notRobot: yup.boolean().oneOf([true]),
 });
 
@@ -58,7 +58,7 @@ const SignupForm = () => {
         emailConfirmation: "",
         password: "",
         passwordConfirmation: "",
-        accountType: "",
+        account: "",
         notRobot: false,
     });
     console.log(formState);
@@ -71,13 +71,40 @@ const SignupForm = () => {
         });
     }, [formState]);
 
+    useEffect(() => {
+        Form.isValid(formState).then((valid) => {
+          setButtonDisabled(!valid);
+        });
+      }, [formState]);
+    
+      const [post, setPost] = useState([]);
+    
+      useEffect(() => {
+        axios
+            .post('https://how-to-api-2.herokuapp.com/auth/register', formState)
+            .then(res => {
+                setPost(res.data)
+                console.log(res)
+        })
+        .catch(err => {
+            console.log(err.response)
+        });
+    }, [formState]);
+    
+      const formSubmit = e => {
+        e.preventDefault();
+        console.log('Info Sent');
+      };
+    
+      console.log(post);
+
     const [errors, setErrors] = useState({
         name: "",
         firstName: "",
         lastName: "",
         email: "",
         password: "",
-        accountType: "",
+        account: "",
         notRobot: "",
     });
 
@@ -106,29 +133,6 @@ const SignupForm = () => {
         e.target.type === "checkbox" ? e.target.checked : e.target.value;
         setFormState({ ...formState, [e.target.name]: value });
     };
-
-    const [post, setPost] = useState([]);
-    
-
-    const formSubmit = (e) => {
-        e.preventDefault();
-        axios
-        .post("https://reqres.in/api/users", formState)
-        .then((res) => {
-            setPost((prevState) => [...prevState, res.data]);
-            setFormState({
-                name: "",
-                firstName: "",
-                lastName: "",
-                email: "",
-                password: "",
-                accountType: "",
-                notRobot: ""
-            });
-        })
-        .catch((err) => console.log(err.response));
-    };
-    console.log(post);
 
     
 
@@ -217,20 +221,20 @@ const SignupForm = () => {
             placeholder="Confirm Password."
             />
         </CustomLabel>
-        <CustomLabel htmlFor="accountType">
-            Reader or Contributor
+        <CustomLabel htmlFor="account">
+            Editor or Subscriber
             <select
-            name= "accountType"
-            id= "accountType"
-            value={formState.accountType}
+            name= "account"
+            id= "account"
+            value={formState.account}
             onChange={inputChange}
             >
             <option value="select-account">Please Select an Account</option>
-            <option value="reader">Reader</option>
-            <option value="contributor">Contributor</option>
+            <option value="Editor">Editor</option>
+            <option value="Subscriber">Subscriber</option>
             </select>
-            {errors.accountType.length > 0 ? (
-            <p className="error">{errors.accountType}</p>
+            {errors.account.length > 0 ? (
+            <p className="error">{errors.account}</p>
             ) : null}
         </CustomLabel>
         <CustomLabel htmlFor="notRobot">
