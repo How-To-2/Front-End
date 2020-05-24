@@ -8,8 +8,8 @@ import { UserContext } from './contexts/UserContext';
 
 import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
-
-import './App.css';
+import SignupPage from './views/SignupPage';
+import UserPage from './views/UserPage';
 
 function App() {
 
@@ -24,8 +24,14 @@ function App() {
                 <Route exact path="/">
                     <HomePage />
                 </Route>
-                <Route path="/login">
+                <Route exact path="/login">
                     <LoginPage />
+                </Route>
+                <Route exact path="/signup">
+                    <SignupPage />
+                </Route>
+                <Route exact path="/users">
+                    <UserPage />
                 </Route>
             </div>
         </Router>
@@ -33,5 +39,6 @@ function App() {
         </ArticleContext.Provider>
     );
 };
+
 
 export default App;
