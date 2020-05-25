@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import * as yup from "yup";
-import axios from "axios";
+import axiosWithAuth from "../../utils/axiosWithAuth";
+import { AppContext } from  '../../contexts/AppContext';
 import styled from 'styled-components';
 
 const WrapperForm = styled.form`
@@ -34,7 +35,7 @@ const Form = yup.object().shape({
   notRobot: yup.boolean().oneOf([true])
 });
 
-const LoginForm = () => {
+const LoginForm = props => {
 
   const [formState, setFormState] = useState({
     email: "",
@@ -51,26 +52,29 @@ const LoginForm = () => {
     });
   }, [formState]);
 
-  const [post, setPost] = useState([]);
-
-  useEffect(() => {
-    axios
-        .post('https://how-to-api-2.herokuapp.com/auth/login', formState)
-        .then(res => {
-            setPost(res.data)
-            console.log(res)
-    })
-    .catch(err => {
-        console.log(err.response)
-    });
-}, [formState]);
+  const appState = useContext(AppContext);
 
   const formSubmit = e => {
     e.preventDefault();
-    console.log('Info Sent');
+    const data = {
+      Email: formState.email,
+      Password: formState.password
+    };
+    axiosWithAuth()
+      .post('auth/login', data)
+      .then(res => {
+        console.log(res);
+        localStorage.setItem("token", res.data.token);
+        appState.logInUser({
+          username: res.data.Username,
+          permissions: res.date.Account
+        });
+        props.history.push('/');
+      })
+      .catch(err => {
+          console.log(err)
+      });
   };
-
-  console.log(post);
 
   const [errorState, setErrorState] = useState({
     email: "",

@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import PrivateRoute from './components/PrivateRoute';
 
-import { ArticleContext } from './contexts/ArticleContext';
-import { UserContext } from './contexts/UserContext';
+import { AppContext } from './contexts/AppContext';
 
 import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
@@ -13,30 +12,45 @@ import UserPage from './views/UserPage';
 
 function App() {
 
-    const [articles, setArticles] = useState([]);
-    const [user, setUser] = useState(null);
+    const [appState, setAppState] = useState();
+
+    const logInUser = userData => {
+        setAppState({
+            ...appState,
+            loggedInUser: userData
+        });
+    };
+
+    const logOutUser = userDate => {
+        setAppState({
+            ...appState,
+            loggedInUser: null
+        });
+    };
     
     return (
-        <ArticleContext.Provider value={articles}>
-        <UserContext.Provider value={user}>
-        <Router>
-            <div className="App">
-                <Route exact path="/">
-                    <HomePage />
-                </Route>
-                <Route exact path="/login">
-                    <LoginPage />
-                </Route>
-                <Route exact path="/signup">
-                    <SignupPage />
-                </Route>
-                <Route exact path="/users">
-                    <UserPage />
-                </Route>
-            </div>
-        </Router>
-        </UserContext.Provider>
-        </ArticleContext.Provider>
+        <AppContext.Provider value={{
+            appState: appState,
+            logInUser: logInUser,
+            logOutUser: logOutUser
+        }}>
+            <Router>
+                <div className="App">
+                    <Route exact path="/">
+                        <HomePage />
+                    </Route>
+                    <Route exact path="/login">
+                        <LoginPage />
+                    </Route>
+                    <Route exact path="/signup">
+                        <SignupPage />
+                    </Route>
+                    <Route exact path="/users">
+                        <UserPage />
+                    </Route>
+                </div>
+            </Router>
+        </AppContext.Provider>
     );
 };
 
