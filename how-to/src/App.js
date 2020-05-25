@@ -8,6 +8,7 @@ import { AppContext } from './contexts/AppContext';
 import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
 import SignupPage from './views/SignupPage';
+import SignupSuccessPage from "./views/SignupSuccessPage";
 import UserPage from './views/UserPage';
 
 function App() {
@@ -39,11 +40,17 @@ function App() {
                     <Route exact path="/">
                         <HomePage />
                     </Route>
+                    <Route exact path="/home">
+                        <HomePage />
+                    </Route>
                     <Route exact path="/login">
                         <LoginPage />
                     </Route>
                     <Route exact path="/signup">
                         <SignupPage />
+                    </Route>
+                    <Route exact path="/signup/success">
+                        <SignupSuccessPage />
                     </Route>
                     <Route exact path="/users">
                         <UserPage />

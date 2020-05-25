@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 import * as yup from "yup";
 import axiosWithAuth from "../../utils/axiosWithAuth";
 import styled from 'styled-components';
@@ -77,6 +78,8 @@ const SignupForm = () => {
         });
     }, [formState]);
     
+    const history = useHistory();
+
     const formSubmit = e => {
         e.preventDefault();
         const data = {
@@ -88,8 +91,8 @@ const SignupForm = () => {
         axiosWithAuth()
             .post('auth/register', data)
             .then(res => {
-                console.log(res)
-                // TODO: redirect to signup confirmation page
+                console.log(res);
+                history.push('/signup/success')
             })
             .catch(err => {
                 console.log(err)

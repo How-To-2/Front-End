@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import axiosWithAuth from "../../utils/axiosWithAuth";
 import { AppContext } from  '../../contexts/AppContext';
@@ -35,7 +36,7 @@ const Form = yup.object().shape({
   notRobot: yup.boolean().oneOf([true])
 });
 
-const LoginForm = props => {
+const LoginForm = () => {
 
   const [formState, setFormState] = useState({
     email: "",
@@ -53,6 +54,7 @@ const LoginForm = props => {
   }, [formState]);
 
   const appState = useContext(AppContext);
+  const history = useHistory();
 
   const formSubmit = e => {
     e.preventDefault();
@@ -65,11 +67,12 @@ const LoginForm = props => {
       .then(res => {
         console.log(res);
         localStorage.setItem("token", res.data.token);
+        /* ERIC STRETCH: user account levels in frontend */
         appState.logInUser({
           username: res.data.Username,
-          permissions: res.date.Account
+          permissions: res.data.Account
         });
-        props.history.push('/');
+        history.push('/');
       })
       .catch(err => {
           console.log(err)
