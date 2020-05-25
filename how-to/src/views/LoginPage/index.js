@@ -6,9 +6,9 @@ const LoginPage = props => {
 
     return (
         <>
-        <Header />
-        <LoginForm />
-    </>
+            <Header />
+            <LoginForm />
+        </>
     )
 
 }

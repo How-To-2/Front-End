@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
-import axios from "axios";
+import axiosWithAuth from "../../utils/axiosWithAuth";
 import styled from 'styled-components';
 
 const WrapperForm = styled.form`
@@ -75,28 +75,27 @@ const SignupForm = () => {
         Form.isValid(formState).then((valid) => {
           setButtonDisabled(!valid);
         });
-      }, [formState]);
-    
-      const [post, setPost] = useState([]);
-    
-      useEffect(() => {
-        axios
-            .post('https://how-to-api-2.herokuapp.com/auth/register', formState)
-            .then(res => {
-                setPost(res.data)
-                console.log(res)
-        })
-        .catch(err => {
-            console.log(err.response)
-        });
     }, [formState]);
     
-      const formSubmit = e => {
+    const formSubmit = e => {
         e.preventDefault();
+        const data = {
+            Username: formState.name,
+            Password: formState.password,
+            Email: formState.email,
+            Account: formState.account
+        }
+        axiosWithAuth()
+            .post('auth/register', data)
+            .then(res => {
+                console.log(res)
+                // TODO: redirect to signup confirmation page
+            })
+            .catch(err => {
+                console.log(err)
+            });
         console.log('Info Sent');
-      };
-    
-      console.log(post);
+    };
 
     const [errors, setErrors] = useState({
         name: "",
