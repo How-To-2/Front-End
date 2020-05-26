@@ -7,7 +7,7 @@ const HomePage = props => {
 
     return (
         <>
-            <Header />
+            <Header page='home' />
         </>
     )
 

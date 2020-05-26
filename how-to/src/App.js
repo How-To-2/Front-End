@@ -7,9 +7,12 @@ import { AppContext } from './contexts/AppContext';
 
 import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
+import LogoutPage from './views/LogoutPage';
 import SignupPage from './views/SignupPage';
 import SignupSuccessPage from "./views/SignupSuccessPage";
 import UserPage from './views/UserPage';
+
+import './App.css';
 
 function App() {
 
@@ -22,7 +25,8 @@ function App() {
         });
     };
 
-    const logOutUser = userDate => {
+    const logOutUser = () => {
+        localStorage.removeItem('token');
         setAppState({
             ...appState,
             loggedInUser: null
@@ -46,6 +50,9 @@ function App() {
                     <Route exact path="/login">
                         <LoginPage />
                     </Route>
+                    <PrivateRoute exact path="/logout">
+                        <LogoutPage />
+                    </PrivateRoute>
                     <Route exact path="/signup">
                         <SignupPage />
                     </Route>
