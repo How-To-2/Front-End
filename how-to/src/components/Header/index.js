@@ -1,40 +1,26 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-import styled from 'styled-components';
+
 import Block from './Block';
+import Title from './Title';
 
-const NewButton = styled.button`
-background-color: white;
-width: 100%;
-color: purple;
-padding: 10px;
-border-radius: 25px;
-`
-const NewNav = styled.nav`
-display: flex;
-`
+import Navigation from '../Navigation';
 
-const NewDiv = styled.div`
-font-size: 2rem;
-color: white;
-`
 
-const Header = props => {
+const Header = ({page}) => {
 
     return (
         <Header.Block>
-            <NewDiv>HOW TO...</NewDiv>
-            <NewNav>
-            <Link to="/">
-                    <NewButton type="button" className="btn">Home</NewButton>
-                </Link>
-                <Link to="/signup">
-                    <NewButton type="button" className="btn">Sign Up</NewButton>
-                </Link>
-                <Link to="/login">
-                    <NewButton type="button" className="btn">Login</NewButton>
-                </Link>
-            </NewNav>
+            <Header.Title>HOW TO...</Header.Title>
+            <Navigation>
+                <Navigation.Link to="/" active={page === 'home' ? true : false}>HOME</Navigation.Link>
+                <Navigation.Link to="/browse" active={page === 'browse' ? true : false}>BROWSE</Navigation.Link>
+                <Navigation.Link to="/create" active={page === 'create' ? true : false}>CREATE</Navigation.Link>
+                {
+                    localStorage.getItem('token')
+                        ? <Navigation.Link to="/logout">LOGOUT</Navigation.Link> 
+                        : <Navigation.Link to="/login" active={page === 'login' ? true : false}>LOGIN</Navigation.Link>
+                }
+            </Navigation>
         </Header.Block>
     );
 
@@ -43,3 +29,4 @@ const Header = props => {
 export default Header;
 
 Header.Block = Block;
+Header.Title = Title;

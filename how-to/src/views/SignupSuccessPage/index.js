@@ -3,14 +3,15 @@ import React from "react";
 import Header from '../../components/Header';
 import HowToShort from '../../components/HowToShort';
 
-const HomePage = props => {
+const SignupSuccessPage = props => {
 
     return (
         <>
-            <Header page='home' />
+            <Header />
+            <div>Success</div>
         </>
     )
 
 }
 
-export default HomePage; 
+export default SignupSuccessPage; 
