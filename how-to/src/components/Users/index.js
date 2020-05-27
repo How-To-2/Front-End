@@ -5,19 +5,16 @@ import axios from "axios";
 const UserList = props => {
   const [users, setUsers] = useState([])
   useEffect(() => {
-    const getUsers = () => {
-      axios.get('https://how-to-api-2.herokuapp.com/api/auth/users', {
-        params: {
-          ID: 0
-        }
-      })
-      .then(function (response) {
-        console.log(response);
-      });
-    }
-    
     getUsers();
   }, []);
+
+  const getUsers = () => {
+    axios.get('https://how-to-api-2.herokuapp.com/api/auth/users')
+    .then(function (response) {
+      console.log(response);
+    });
+  }
+  
 
   return (
     <div className="user-list">

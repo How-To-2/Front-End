@@ -1,41 +1,41 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const WrapperForm = styled.form`
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        `
-    const CustomLabel = styled.label`
-        padding: 1rem;
-        display:flex;
-        flex-direction:column;
-    `
-    const NewButton = styled.button`
-        background-color: white;
-        width: 100%;
-        color: purple;
-        padding: 10px;
-        border-radius: 25px;
-`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const CustomLabel = styled.label`
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+`;
+const NewButton = styled.button`
+  background-color: white;
+  width: 100%;
+  color: purple;
+  padding: 10px;
+  border-radius: 25px;
+`;
 
 const Form = yup.object().shape({
   email: yup.string().email().required("Must Be Valid Email"),
   password: yup
     .string()
-    .required("Please Enter Password").min(6, "Password is Too Short - Must Be Longer Than 8 Characters.")
+    .required("Please Enter Password")
+    .min(6, "Password is Too Short - Must Be Longer Than 8 Characters.")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&])(?=.{8,})/,
       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
     ),
-  notRobot: yup.boolean().oneOf([true])
+  notRobot: yup.boolean().oneOf([true]),
 });
 
 const LoginForm = () => {
-
   const [formState, setFormState] = useState({
     email: "",
     password: "",
@@ -55,19 +55,19 @@ const LoginForm = () => {
 
   useEffect(() => {
     axios
-        .post('https://how-to-api-2.herokuapp.com/auth/login', formState)
-        .then(res => {
-            setPost(res.data)
-            console.log(res)
-    })
-    .catch(err => {
-        console.log(err.response)
-    });
-}, [formState]);
+      .post("https://how-to-api-2.herokuapp.com/auth/login", formState)
+      .then((res) => {
+        setPost(res.data);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, [formState]);
 
-  const formSubmit = e => {
+  const formSubmit = (e) => {
     e.preventDefault();
-    console.log('Info Sent');
+    console.log("Info Sent");
   };
 
   console.log(post);
@@ -105,8 +105,6 @@ const LoginForm = () => {
   };
 
   return (
-
-    
     <WrapperForm onSubmit={formSubmit}>
       <CustomLabel htmlFor="email">
         Email
