@@ -1,7 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
+<<<<<<< HEAD
 import axios from "axios";
 import styled from "styled-components";
+=======
+import axiosWithAuth from "../../utils/axiosWithAuth";
+import { AppContext } from  '../../contexts/AppContext';
+import styled from 'styled-components';
+>>>>>>> a6d8c7f8cf50072496c3472794275e1ac49552f7
 
 const WrapperForm = styled.form`
   width: 100%;
@@ -51,6 +58,7 @@ const LoginForm = () => {
     });
   }, [formState]);
 
+<<<<<<< HEAD
   const [post, setPost] = useState([]);
 
   useEffect(() => {
@@ -64,13 +72,37 @@ const LoginForm = () => {
         console.log(err.response);
       });
   }, [formState]);
+=======
+  const appState = useContext(AppContext);
+  const history = useHistory();
+>>>>>>> a6d8c7f8cf50072496c3472794275e1ac49552f7
 
   const formSubmit = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     console.log("Info Sent");
+=======
+    const data = {
+      Email: formState.email,
+      Password: formState.password
+    };
+    axiosWithAuth()
+      .post('auth/login', data)
+      .then(res => {
+        console.log(res);
+        localStorage.setItem("token", res.data.token);
+        /* ERIC STRETCH: user account levels in frontend */
+        appState.logInUser({
+          username: res.data.Username,
+          permissions: res.data.Account
+        });
+        history.push('/');
+      })
+      .catch(err => {
+          console.log(err)
+      });
+>>>>>>> a6d8c7f8cf50072496c3472794275e1ac49552f7
   };
-
-  console.log(post);
 
   const [errorState, setErrorState] = useState({
     email: "",
