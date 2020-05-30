@@ -15,7 +15,7 @@ const UserPage = props => {
 
     return (
         <>
-        <Header />
+        <Header page='users' />
         <Userh1>Users</Userh1>
         <p>
         <UserList />
