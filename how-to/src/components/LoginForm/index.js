@@ -1,14 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
-<<<<<<< HEAD
-import axios from "axios";
-import styled from "styled-components";
-=======
 import axiosWithAuth from "../../utils/axiosWithAuth";
 import { AppContext } from  '../../contexts/AppContext';
 import styled from 'styled-components';
->>>>>>> a6d8c7f8cf50072496c3472794275e1ac49552f7
 
 const WrapperForm = styled.form`
   width: 100%;
@@ -28,13 +23,20 @@ const NewButton = styled.button`
   padding: 10px;
   border-radius: 25px;
 `;
+const Title = styled.h1`
+  font-size: 2rem;
+`;
+const errorHide =styled.p`
+  visibility: hidden;
+`
+
 
 const Form = yup.object().shape({
   email: yup.string().email().required("Must Be Valid Email"),
   password: yup
     .string()
     .required("Please Enter Password")
-    .min(6, "Password is Too Short - Must Be Longer Than 8 Characters.")
+    .min(6, "Password is Too Short - Must Be Longer Than 6 Characters.")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&])(?=.{8,})/,
       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
@@ -58,30 +60,11 @@ const LoginForm = () => {
     });
   }, [formState]);
 
-<<<<<<< HEAD
-  const [post, setPost] = useState([]);
-
-  useEffect(() => {
-    axios
-      .post("https://how-to-api-2.herokuapp.com/auth/login", formState)
-      .then((res) => {
-        setPost(res.data);
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  }, [formState]);
-=======
   const appState = useContext(AppContext);
   const history = useHistory();
->>>>>>> a6d8c7f8cf50072496c3472794275e1ac49552f7
 
-  const formSubmit = (e) => {
+  const formSubmit = e => {
     e.preventDefault();
-<<<<<<< HEAD
-    console.log("Info Sent");
-=======
     const data = {
       Email: formState.email,
       Password: formState.password
@@ -90,18 +73,12 @@ const LoginForm = () => {
       .post('auth/login', data)
       .then(res => {
         console.log(res);
-        localStorage.setItem("token", res.data.token);
-        /* ERIC STRETCH: user account levels in frontend */
-        appState.logInUser({
-          username: res.data.Username,
-          permissions: res.data.Account
-        });
+        appState.logInUser(res.data.id, res.data.token);
         history.push('/');
       })
       .catch(err => {
           console.log(err)
       });
->>>>>>> a6d8c7f8cf50072496c3472794275e1ac49552f7
   };
 
   const [errorState, setErrorState] = useState({
@@ -138,6 +115,10 @@ const LoginForm = () => {
 
   return (
     <WrapperForm onSubmit={formSubmit}>
+      <Title>
+        Login
+      </Title>
+      
       <CustomLabel htmlFor="email">
         Email
         <input
@@ -154,7 +135,7 @@ const LoginForm = () => {
       <CustomLabel htmlFor="password">
         Password
         <input
-          type="text"
+          type="password"
           name="password"
           value={formState.password}
           onChange={inputChange}
@@ -172,7 +153,7 @@ const LoginForm = () => {
           onChange={inputChange}
         />
         {errorState.notRobot.length > 0 ? (
-          <p className="error">{errorState.notRobot}</p>
+          <p className="roboerror">{errorState.notRobot}</p>
         ) : null}
       </CustomLabel>
       <NewButton disabled={buttonDisabled}>Login</NewButton>
