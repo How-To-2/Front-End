@@ -15,6 +15,7 @@ const Header = ({page}) => {
                 <Navigation.Link to="/" active={page === 'home' ? true : false}>HOME</Navigation.Link>
                 <Navigation.Link to="/mine" active={page === 'mine' ? true : false}>MINE</Navigation.Link>
                 <Navigation.Link to="/create" active={page === 'create' ? true : false}>CREATE</Navigation.Link>
+                <Navigation.Link to="/users" active={page === 'users' ? true : false}>USERS</Navigation.Link>
                 {
                     localStorage.getItem('token')
                         ? <Navigation.Link to="/logout">LOGOUT</Navigation.Link> 
