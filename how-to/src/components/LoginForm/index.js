@@ -66,12 +66,7 @@ const LoginForm = () => {
       .post('auth/login', data)
       .then(res => {
         console.log(res);
-        localStorage.setItem("token", res.data.token);
-        /* ERIC STRETCH: user account levels in frontend */
-        appState.logInUser({
-          username: res.data.Username,
-          permissions: res.data.Account
-        });
+        appState.logInUser(res.data.id, res.data.token);
         history.push('/');
       })
       .catch(err => {

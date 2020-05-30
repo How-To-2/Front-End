@@ -13,7 +13,7 @@ const Header = ({page}) => {
             <Header.Title>HOW TO...</Header.Title>
             <Navigation>
                 <Navigation.Link to="/" active={page === 'home' ? true : false}>HOME</Navigation.Link>
-                <Navigation.Link to="/browse" active={page === 'browse' ? true : false}>BROWSE</Navigation.Link>
+                <Navigation.Link to="/mine" active={page === 'mine' ? true : false}>MINE</Navigation.Link>
                 <Navigation.Link to="/create" active={page === 'create' ? true : false}>CREATE</Navigation.Link>
                 {
                     localStorage.getItem('token')
