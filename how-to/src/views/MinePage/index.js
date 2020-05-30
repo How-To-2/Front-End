@@ -69,7 +69,7 @@ const MinePage = props => {
                     </div>
                 ))}
             </div>
-            {editing ? (
+            {editing && (
                 <div>
                     <hr/>
                     <form onSubmit={editArticle}>
@@ -91,7 +91,7 @@ const MinePage = props => {
                         }}>Cancel</button>
                     </form>
                 </div>
-            ) : (<div></div>)}
+            )}
         </>
     )
 
