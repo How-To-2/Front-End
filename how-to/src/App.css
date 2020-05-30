@@ -2,3 +2,7 @@
   font-family: routed-gothic;
   src: url('./fonts/routed-gothic.ttf');
 }
+
+p.roboerror {
+  display: none;
+}

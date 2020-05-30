@@ -6,38 +6,45 @@ import { AppContext } from  '../../contexts/AppContext';
 import styled from 'styled-components';
 
 const WrapperForm = styled.form`
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        `
-    const CustomLabel = styled.label`
-        padding: 1rem;
-        display:flex;
-        flex-direction:column;
-    `
-    const NewButton = styled.button`
-        background-color: white;
-        width: 100%;
-        color: purple;
-        padding: 10px;
-        border-radius: 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const CustomLabel = styled.label`
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+`;
+const NewButton = styled.button`
+  background-color: white;
+  width: 100%;
+  color: purple;
+  padding: 10px;
+  border-radius: 25px;
+`;
+const Title = styled.h1`
+  font-size: 2rem;
+`;
+const errorHide =styled.p`
+  visibility: hidden;
 `
+
 
 const Form = yup.object().shape({
   email: yup.string().email().required("Must Be Valid Email"),
   password: yup
     .string()
-    .required("Please Enter Password").min(6, "Password is Too Short - Must Be Longer Than 8 Characters.")
+    .required("Please Enter Password")
+    .min(6, "Password is Too Short - Must Be Longer Than 6 Characters.")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#%&])(?=.{8,})/,
       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
     ),
-  notRobot: yup.boolean().oneOf([true])
+  notRobot: yup.boolean().oneOf([true]),
 });
 
 const LoginForm = () => {
-
   const [formState, setFormState] = useState({
     email: "",
     password: "",
@@ -66,12 +73,7 @@ const LoginForm = () => {
       .post('auth/login', data)
       .then(res => {
         console.log(res);
-        localStorage.setItem("token", res.data.token);
-        /* ERIC STRETCH: user account levels in frontend */
-        appState.logInUser({
-          username: res.data.Username,
-          permissions: res.data.Account
-        });
+        appState.logInUser(res.data.id, res.data.token);
         history.push('/');
       })
       .catch(err => {
@@ -112,9 +114,11 @@ const LoginForm = () => {
   };
 
   return (
-
-    
     <WrapperForm onSubmit={formSubmit}>
+      <Title>
+        Login
+      </Title>
+      
       <CustomLabel htmlFor="email">
         Email
         <input
@@ -131,7 +135,7 @@ const LoginForm = () => {
       <CustomLabel htmlFor="password">
         Password
         <input
-          type="text"
+          type="password"
           name="password"
           value={formState.password}
           onChange={inputChange}
@@ -149,7 +153,7 @@ const LoginForm = () => {
           onChange={inputChange}
         />
         {errorState.notRobot.length > 0 ? (
-          <p className="error">{errorState.notRobot}</p>
+          <p className="roboerror">{errorState.notRobot}</p>
         ) : null}
       </CustomLabel>
       <NewButton disabled={buttonDisabled}>Login</NewButton>
