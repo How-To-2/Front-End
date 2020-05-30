@@ -15,6 +15,7 @@ import SignupSuccessPage from "./views/SignupSuccessPage";
 import UserPage from './views/UserPage';
 import CreatePage from './views/CreatePage';
 import MinePage from './views/MinePage';
+import HowToPage from './views/HowToPage';
 
 import './App.css';
 
@@ -54,7 +55,7 @@ function App() {
     }
 
     const editArticle = edit => {
-        const editedArticle = articles.filter(a => a.id === edit.id);
+        const editedArticle = articles.filter(a => a.id === edit.id)[0];
         editedArticle.Title = edit.Title;
         editedArticle.Content = edit.Content;
         console.log('editedArticle ->', editedArticle);
@@ -96,9 +97,7 @@ function App() {
                     <Route exact path="/users">
                         <UserPage />
                     </Route>
-                    <Route path="/article/:id">
-
-                    </Route>
+                    <Route path="/article/:id" component={HowToPage} />
                     <PrivateRoute path="/create" component={CreatePage} />
                     <PrivateRoute path="/mine" component={MinePage} />
                 </div>
